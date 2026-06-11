@@ -125,7 +125,7 @@ export default function RegisterPage() {
             p-3
             rounded
             mb-4
-            text-black
+            
           "
         />
 
@@ -143,7 +143,7 @@ export default function RegisterPage() {
             p-3
             rounded
             mb-4
-            text-black
+            
           "
         />
 
@@ -161,7 +161,7 @@ export default function RegisterPage() {
             p-3
             rounded
             mb-6
-            text-black
+            
           "
         />
 

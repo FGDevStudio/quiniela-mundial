@@ -105,7 +105,7 @@ export default function LoginPage() {
             p-3
             rounded
             mb-4
-            text-black
+            
           "
         />
 
@@ -123,7 +123,7 @@ export default function LoginPage() {
             p-3
             rounded
             mb-4
-            text-black
+            
           "
         />
 

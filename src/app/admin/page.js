@@ -187,7 +187,7 @@ export default function AdminPage() {
               className="
                 p-3
                 rounded
-                text-black
+                
               "
             >
 
@@ -225,7 +225,7 @@ export default function AdminPage() {
               className="
                 p-3
                 rounded
-                text-black
+                
               "
             >
 
@@ -261,7 +261,7 @@ export default function AdminPage() {
               className="
                 p-3
                 rounded
-                text-black
+                
               "
             >
 
@@ -302,7 +302,7 @@ export default function AdminPage() {
               className="
                 p-3
                 rounded
-                text-black
+                
               "
             />
 
@@ -317,7 +317,7 @@ export default function AdminPage() {
               className="
                 p-3
                 rounded
-                text-black
+                
               "
             />
 
