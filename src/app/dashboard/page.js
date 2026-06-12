@@ -104,17 +104,55 @@ export default function DashboardPage() {
             );
 
           const matchesData =
-            matchesSnapshot.docs.map(
-              document => ({
-                id:
-                  document.id,
-                ...document.data()
-              })
-            );
+  matchesSnapshot.docs.map(
+    document => ({
+      id:
+        document.id,
+      ...document.data()
+    })
+  );
 
-          setMatches(
-            matchesData
-          );
+matchesData.sort(
+  (a, b) => {
+
+    const aFinished =
+      a.status === "finished";
+
+    const bFinished =
+      b.status === "finished";
+
+    if (
+      aFinished &&
+      !bFinished
+    ) {
+      return 1;
+    }
+
+    if (
+      !aFinished &&
+      bFinished
+    ) {
+      return -1;
+    }
+
+    const dateA =
+      new Date(
+        `${a.date}T${a.time}`
+      );
+
+    const dateB =
+      new Date(
+        `${b.date}T${b.time}`
+      );
+
+    return dateA - dateB;
+
+  }
+);
+
+setMatches(
+  matchesData
+);
 
         } catch(error) {
 
