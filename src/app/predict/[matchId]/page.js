@@ -43,6 +43,9 @@ export default function PredictPage() {
   const [loading, setLoading] =
     useState(true);
 
+    const [saving, setSaving] =
+  useState(false);
+
   useEffect(() => {
 
     loadData();
@@ -151,6 +154,12 @@ export default function PredictPage() {
 
   async function savePrediction() {
 
+    if (saving) {
+  return;
+}
+
+setSaving(true);
+
     if (
       predictionA === "" ||
       predictionB === ""
@@ -160,6 +169,7 @@ export default function PredictPage() {
         "Ingresa tu marcador"
       );
 
+      setSaving(false);
       return;
 
     }
@@ -172,6 +182,7 @@ export default function PredictPage() {
         "No tienes puntos suficientes"
       );
 
+      setSaving(false);
       return;
 
     }
@@ -195,6 +206,7 @@ export default function PredictPage() {
         "La predicción está cerrada"
       );
 
+      setSaving(false);
       return;
 
     }
@@ -230,6 +242,7 @@ export default function PredictPage() {
         "Ya realizaste una predicción para este partido"
       );
 
+      setSaving(false);
       return;
 
     }
@@ -284,6 +297,8 @@ export default function PredictPage() {
     } catch(error) {
 
       console.error(error);
+
+      setSaving(false);
 
       alert(
         "Error al guardar"
@@ -406,7 +421,7 @@ export default function PredictPage() {
                 w-24
                 p-3
                 rounded
-                text-black
+                text-white
               "
             />
 
@@ -431,16 +446,18 @@ export default function PredictPage() {
                 w-24
                 p-3
                 rounded
-                text-black
+                text-white
               "
             />
 
           </div>
 
           <button
-            onClick={
-              savePrediction
-            }
+  onClick={
+    savePrediction
+  }
+  disabled={saving}
+
             className="
               bg-green-500
               px-6
@@ -449,7 +466,11 @@ export default function PredictPage() {
               font-bold
             "
           >
-            Guardar Predicción
+            {
+  saving
+    ? "Guardando..."
+    : "Guardar Predicción"
+}
           </button>
 
         </div>
