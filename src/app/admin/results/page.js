@@ -212,28 +212,36 @@ if (
         earnedScore = 3;
 
       }
-      else {
 
-        const realWinner =
-          resultA > resultB
-            ? "A"
-            : "B";
+       else {
 
-        const predictedWinner =
-          predA > predB
-            ? "A"
-            : "B";
+  if (
+    !resultIsDraw &&
+    !predictionIsDraw
+  ) {
 
-        if (
-          realWinner ===
-          predictedWinner
-        ) {
+    const realWinner =
+      resultA > resultB
+        ? "A"
+        : "B";
 
-          earnedScore = 3;
+    const predictedWinner =
+      predA > predB
+        ? "A"
+        : "B";
 
-        }
+    if (
+      realWinner ===
+      predictedWinner
+    ) {
 
-      }
+      earnedScore = 3;
+
+    }
+
+  }
+
+}
 
       if (
         earnedScore > 0
@@ -448,7 +456,7 @@ function ResultCard({
             w-20
             p-2
             rounded
-            text-black
+            text-white
           "
         />
 
@@ -468,7 +476,7 @@ function ResultCard({
             w-20
             p-2
             rounded
-            text-black
+            text-white
           "
         />
 
