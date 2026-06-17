@@ -142,6 +142,42 @@ export default function PredictionsPage() {
               }
             );
 
+            data.sort((a, b) => {
+
+  const aFinished =
+    a.match?.status === "finished";
+
+  const bFinished =
+    b.match?.status === "finished";
+
+  if (
+    aFinished &&
+    !bFinished
+  ) {
+    return 1;
+  }
+
+  if (
+    !aFinished &&
+    bFinished
+  ) {
+    return -1;
+  }
+
+  const dateA =
+    new Date(
+      `${a.match?.date}T${a.match?.time}`
+    );
+
+  const dateB =
+    new Date(
+      `${b.match?.date}T${b.match?.time}`
+    );
+
+  return dateA - dateB;
+
+});
+
           setPredictions(
             data
           );
