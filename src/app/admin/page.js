@@ -14,10 +14,10 @@ import { db } from "@/lib/firebase";
 export default function AdminPage() {
 
   const [phase, setPhase] =
-  useState("groups");
+    useState("groups");
 
-const [group, setGroup] =
-  useState("");
+  const [group, setGroup] =
+    useState("");
 
   const [teamA, setTeamA] =
     useState("");
@@ -31,23 +31,23 @@ const [group, setGroup] =
   const [time, setTime] =
     useState("");
 
- const teamsAvailable =
-  phase === "groups"
-    ? teams.filter(
-        team =>
-          team.group === group
-      )
-    : teams;
+  const teamsAvailable =
+    phase === "groups"
+      ? teams.filter(
+          team =>
+            team.group === group
+        )
+      : teams;
 
   async function createMatch() {
 
     if (
-  (phase === "groups" && !group) ||
-  !teamA ||
-  !teamB ||
-  !date ||
-  !time
-){
+      (phase === "groups" && !group) ||
+      !teamA ||
+      !teamB ||
+      !date ||
+      !time
+    ) {
 
       alert(
         "Completa todos los campos"
@@ -70,13 +70,13 @@ const [group, setGroup] =
     try {
 
       await addDoc(
-  collection(
-    db,
-    "matches"
-  ),
-  {
-    phase,
-    group,
+        collection(
+          db,
+          "matches"
+        ),
+        {
+          phase,
+          group,
 
           teamA:
             local.name,
@@ -109,6 +109,7 @@ const [group, setGroup] =
         "Partido guardado"
       );
 
+      setGroup("");
       setTeamA("");
       setTeamB("");
       setDate("");
@@ -163,140 +164,113 @@ const [group, setGroup] =
         >
 
           <h2
-  className="
-    text-2xl
-    font-bold
-    mb-6
-  "
->
-  Crear Partido
-</h2>
-
-<div
-  className="
-    grid
-    gap-4
-  "
->
-
-  <select
-    value={phase}
-    onChange={(e) =>
-      setPhase(
-        e.target.value
-      )
-    }
-    className="
-      p-3
-      rounded
-    "
-  >
-
-    <option value="groups">
-      Fase de Grupos
-    </option>
-
-    <option value="round16">
-      16vos
-    </option>
-
-    <option value="round8">
-      Octavos
-    </option>
-
-    <option value="quarterfinal">
-      Cuartos
-    </option>
-
-    <option value="semifinal">
-      Semifinal
-    </option>
-
-    <option value="thirdplace">
-      Tercer Lugar
-    </option>
-
-    <option value="final">
-      Final
-    </option>
-
-  </select>
-
-  {
-  phase === "groups" && (
-
-    <select
-      value={group}
-      onChange={(e) => {
-
-        setGroup(
-          e.target.value
-        );
-
-        setTeamA("");
-        setTeamB("");
-
-      }}
-      className="
-        p-3
-        rounded
-      "
-    >
-
-      <option value="">
-        Selecciona grupo
-      </option>
-
-      {
-        [
-          "A","B","C","D",
-          "E","F","G","H",
-          "I","J","K","L"
-        ].map(group => (
-
-          <option
-            key={group}
-            value={group}
+            className="
+              text-2xl
+              font-bold
+              mb-6
+            "
           >
-            Grupo {group}
-          </option>
+            Crear Partido
+          </h2>
 
-        ))
-      }
+          <div
+            className="
+              grid
+              gap-4
+            "
+          >
 
-    </select>
-
-  )
-}
+            <select
+              value={phase}
+              onChange={(e) =>
+                setPhase(
+                  e.target.value
+                )
+              }
               className="
                 p-3
                 rounded
-                
+                text-black
               "
             >
 
-              <option value="">
-                Selecciona grupo
+              <option value="groups">
+                Fase de Grupos
               </option>
 
-              {
-                [
-                  "A","B","C","D",
-                  "E","F","G","H",
-                  "I","J","K","L"
-                ].map(group => (
+              <option value="round16">
+                16vos
+              </option>
 
-                  <option
-                    key={group}
-                    value={group}
-                  >
-                    Grupo {group}
-                  </option>
+              <option value="round8">
+                Octavos
+              </option>
 
-                ))
-              }
+              <option value="quarterfinal">
+                Cuartos
+              </option>
+
+              <option value="semifinal">
+                Semifinal
+              </option>
+
+              <option value="thirdplace">
+                Tercer Lugar
+              </option>
+
+              <option value="final">
+                Final
+              </option>
 
             </select>
+
+            {
+              phase === "groups" && (
+
+                <select
+                  value={group}
+                  onChange={(e) => {
+
+                    setGroup(
+                      e.target.value
+                    );
+
+                    setTeamA("");
+                    setTeamB("");
+
+                  }}
+                  className="
+                    p-3
+                    rounded
+                    text-black
+                  "
+                >
+
+                  <option value="">
+                    Selecciona grupo
+                  </option>
+
+                  {
+                    [
+                      "A","B","C","D",
+                      "E","F","G","H",
+                      "I","J","K","L"
+                    ].map(group => (
+
+                      <option
+                        key={group}
+                        value={group}
+                      >
+                        Grupo {group}
+                      </option>
+
+                    ))
+                  }
+
+                </select>
+
+              )
+            }
 
             <select
               value={teamA}
@@ -306,14 +280,14 @@ const [group, setGroup] =
                 )
               }
               disabled={
-  phase === "groups"
-    ? !group
-    : false
-}
+                phase === "groups"
+                  ? !group
+                  : false
+              }
               className="
                 p-3
                 rounded
-                
+                text-black
               "
             >
 
@@ -346,14 +320,14 @@ const [group, setGroup] =
                 )
               }
               disabled={
-  phase === "groups"
-    ? !group
-    : false
-}
+                phase === "groups"
+                  ? !group
+                  : false
+              }
               className="
                 p-3
                 rounded
-                
+                text-black
               "
             >
 
@@ -394,7 +368,7 @@ const [group, setGroup] =
               className="
                 p-3
                 rounded
-                
+                text-black
               "
             />
 
@@ -409,7 +383,7 @@ const [group, setGroup] =
               className="
                 p-3
                 rounded
-                
+                text-black
               "
             />
 
