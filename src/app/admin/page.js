@@ -13,8 +13,11 @@ import { db } from "@/lib/firebase";
 
 export default function AdminPage() {
 
-  const [group, setGroup] =
-    useState("");
+  const [phase, setPhase] =
+  useState("groups");
+
+const [group, setGroup] =
+  useState("");
 
   const [teamA, setTeamA] =
     useState("");
@@ -28,20 +31,23 @@ export default function AdminPage() {
   const [time, setTime] =
     useState("");
 
-  const teamsByGroup =
-    teams.filter(
-      team => team.group === group
-    );
+ const teamsAvailable =
+  phase === "groups"
+    ? teams.filter(
+        team =>
+          team.group === group
+      )
+    : teams;
 
   async function createMatch() {
 
     if (
-      !group ||
-      !teamA ||
-      !teamB ||
-      !date ||
-      !time
-    ) {
+  (phase === "groups" && !group) ||
+  !teamA ||
+  !teamB ||
+  !date ||
+  !time
+){
 
       alert(
         "Completa todos los campos"
@@ -64,12 +70,13 @@ export default function AdminPage() {
     try {
 
       await addDoc(
-        collection(
-          db,
-          "matches"
-        ),
-        {
-          group,
+  collection(
+    db,
+    "matches"
+  ),
+  {
+    phase,
+    group,
 
           teamA:
             local.name,
@@ -156,34 +163,111 @@ export default function AdminPage() {
         >
 
           <h2
-            className="
-              text-2xl
-              font-bold
-              mb-6
-            "
+  className="
+    text-2xl
+    font-bold
+    mb-6
+  "
+>
+  Crear Partido
+</h2>
+
+<div
+  className="
+    grid
+    gap-4
+  "
+>
+
+  <select
+    value={phase}
+    onChange={(e) =>
+      setPhase(
+        e.target.value
+      )
+    }
+    className="
+      p-3
+      rounded
+    "
+  >
+
+    <option value="groups">
+      Fase de Grupos
+    </option>
+
+    <option value="round16">
+      16vos
+    </option>
+
+    <option value="round8">
+      Octavos
+    </option>
+
+    <option value="quarterfinal">
+      Cuartos
+    </option>
+
+    <option value="semifinal">
+      Semifinal
+    </option>
+
+    <option value="thirdplace">
+      Tercer Lugar
+    </option>
+
+    <option value="final">
+      Final
+    </option>
+
+  </select>
+
+  {
+  phase === "groups" && (
+
+    <select
+      value={group}
+      onChange={(e) => {
+
+        setGroup(
+          e.target.value
+        );
+
+        setTeamA("");
+        setTeamB("");
+
+      }}
+      className="
+        p-3
+        rounded
+      "
+    >
+
+      <option value="">
+        Selecciona grupo
+      </option>
+
+      {
+        [
+          "A","B","C","D",
+          "E","F","G","H",
+          "I","J","K","L"
+        ].map(group => (
+
+          <option
+            key={group}
+            value={group}
           >
-            Crear Partido
-          </h2>
+            Grupo {group}
+          </option>
 
-          <div
-            className="
-              grid
-              gap-4
-            "
-          >
+        ))
+      }
 
-            <select
-              value={group}
-              onChange={(e) => {
+    </select>
 
-                setGroup(
-                  e.target.value
-                );
-
-                setTeamA("");
-                setTeamB("");
-
-              }}
+  )
+}
               className="
                 p-3
                 rounded
@@ -221,7 +305,11 @@ export default function AdminPage() {
                   e.target.value
                 )
               }
-              disabled={!group}
+              disabled={
+  phase === "groups"
+    ? !group
+    : false
+}
               className="
                 p-3
                 rounded
@@ -234,7 +322,7 @@ export default function AdminPage() {
               </option>
 
               {
-                teamsByGroup.map(team => (
+                teamsAvailable.map(team => (
 
                   <option
                     key={team.name}
@@ -257,7 +345,11 @@ export default function AdminPage() {
                   e.target.value
                 )
               }
-              disabled={!group}
+              disabled={
+  phase === "groups"
+    ? !group
+    : false
+}
               className="
                 p-3
                 rounded
@@ -270,7 +362,7 @@ export default function AdminPage() {
               </option>
 
               {
-                teamsByGroup
+                teamsAvailable
                   .filter(
                     team =>
                       team.name !== teamA
